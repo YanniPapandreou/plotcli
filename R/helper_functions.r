@@ -131,10 +131,15 @@ normalize_data <- function(data,
                            data_min,
                            data_max,
                            plot_range) {
-    val <- ((data - data_min) / (data_max - data_min) * (plot_range)) + 1
-    val[val < 1] <- 1
-    val[val > plot_range] <- plot_range
-    return(val)
+    if (data_max == data_min) {
+      # All data points are the same; place them in the middle of the plot range
+      val <- rep(ceiling(plot_range / 2), length(data))
+    } else {
+      val <- ((data - data_min) / (data_max - data_min) * (plot_range)) + 1
+      val[val < 1] <- 1
+      val[val > plot_range] <- plot_range
+      return(val)
+    }
 }
 
 #' Format number to four characters
