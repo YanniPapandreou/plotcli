@@ -37,3 +37,16 @@ test_that("plotcli R6 class works", {
   expect_silent(plot$add_data(data_2))
   expect_output(plot$print_plot())
 })
+
+test_that("printing plotcli_line/plotcli_scatter doesn't error when y values are constant", {
+  x <- seq(0, 10, length.out = 50)
+  y <- rep(1.0, length(x))
+  p1 <- plotcli_line(x = x, y = y)
+  expect_no_error(p1$print_plot())
+  p2 <- plotcli_line(x = x, y = y, braille = TRUE)
+  expect_no_error(p2$print_plot())
+  p3 <- plotcli_scatter(x = x, y = y)
+  expect_no_error(p3$print_plot())
+  p4 <- plotcli_scatter(x = x, y = y, braille = TRUE)
+  expect_no_error(p4$print_plot())
+})
