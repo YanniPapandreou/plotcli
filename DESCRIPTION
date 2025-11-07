@@ -1,6 +1,6 @@
 Package: plotcli
 Title: Command Line Interface Plotting
-Version: 0.1.1
+Version: 0.1.2
 Date: 2024-04-01
 Authors@R: c(person("Claas", "Heuer", role = c("aut", "cre"), email = "claasheuer@gmail.com"))
 Description: The 'plotcli' package provides terminal-based plotting in R.
