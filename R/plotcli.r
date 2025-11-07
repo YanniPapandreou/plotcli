@@ -257,10 +257,16 @@ plotcli <- R6Class("plotcli",
 
       # now we need want to place the y ticks at the appropriate places within our y tick matrix and space
       # them out evenly
-      y_ticks <- seq(y_max, y_min, length.out = n_ticks)
-
+      if (y_max == y_min) {
+        # Only one tick, place it in the center and use a small range around y_min
+        delta <- max(1, abs(y_min) * 0.05)
+        y_ticks <- seq(y_min + delta, y_min - delta, length.out = n_ticks)
+      } else {
+        y_ticks <- seq(y_max, y_min, length.out = n_ticks)
+      }
       # Place the y ticks into the y tick matrix at the appropriate spots
-      y_tick_positions <- round(seq(1, nrow(self$plot_canvas), length.out = n_ticks)) + self$plot_matrix_canvas_row_start - 1
+      y_tick_positions <- round(seq(1, nrow(self$plot_canvas), length.out = n_ticks)) +
+        self$plot_matrix_canvas_row_start - 1
 
       for (i in 1:length(y_ticks)) {
         y_tick_matrix[y_tick_positions[i], 1:(offset + char_length)] <- c(unlist(stringr::str_split(format_four_chars(y_ticks[i]), pattern = "")), rep(" ", times = offset))
